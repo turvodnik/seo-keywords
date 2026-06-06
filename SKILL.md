@@ -34,9 +34,24 @@ description: Фазовый скилл сбора семантики и клас
    - Яндекс Wordstat / Вебмастер / Perplexity — делегат/браузер по рантайму.
    - **В контекст тяни только дистилляты** (`*-merged-*.md`), не сырьё.
 
-3. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
+3. **Для сложных ecommerce-категорий включить LLM multi-pass**:
+   - Antigravity Phase 1-2 — ширина, long-tail, локальные гипотезы.
+   - Perplexity Pro/deep research Phase 1-4 — источники, evidence, self-audit.
+   - Codex-native final audit/brief — production decisions, fact-check queue, vector records.
+   - Google NLP API не использовать без явного разрешения проекта.
 
-4. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи). Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
+   Храни не только текст, но и структуру:
+   - `vector/records.jsonl` — сущности, кластеры, FAQ, фильтры.
+   - `vector/relations.jsonl` — triplets `subject -> predicate -> object`.
+   - `vector/evidence.jsonl` — проверяемые claims и источники.
+   - `vector/subintents.jsonl` — под-интенты и page targets.
+   - `vector/similarity.jsonl` + `vector/neighbor-report.md` — cosine-neighbors, каннибализация, internal-link candidates.
+
+   Итеративную распаковку запускать только после Phase 4 и neighbor report: максимум 5 seed nodes, только P1/P2 commercial/GEO/B2B узлы с понятным page surface и evidence. Не распаковывать все бренды, города и фильтры подряд.
+
+4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
+
+5. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи). Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
 
 ## Выход
 - `<cycle>/02-keywords.md` — сводное ядро.

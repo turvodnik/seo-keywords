@@ -10,6 +10,26 @@
 - Региональная адаптация: РФ → Яндекс+Serpstat; запад → Google+SpyFu+Ahrefs (через `region_profile`).
 - Экономия: кэш с TTL, дистилляты в контекст, guard'ы кредитов Serpstat/SpyFu.
 - Кластеризация (SERP-overlap) + разметка интентов + hub-and-spoke.
+- Multi-pass для сложных ecommerce-категорий: Antigravity Phase 1-2, Perplexity deep research Phase 1-4, Codex-native final audit/brief.
+- Structured reuse: `records.jsonl`, triplets `relations.jsonl`, `evidence.jsonl`, `subintents.jsonl`, cosine-neighbor report и controlled iterative unpacking.
+
+## Multi-pass правило
+
+После сбора через LLM сохраняй не только markdown, но и vector-ready слой:
+
+```text
+seo/research/llm-cli/results/<topic>-multipass-<date>/
+├── distillates/cross-source-merged.md
+├── vector/records.jsonl
+├── vector/relations.jsonl
+├── vector/evidence.jsonl
+├── vector/subintents.jsonl
+├── vector/similarity.jsonl
+├── vector/neighbor-report.md
+└── final/seo-brief.md
+```
+
+Итеративную распаковку делай только после final audit и cosine-neighbor отчета: максимум 5 P1/P2 seed nodes, где есть commercial/GEO/B2B ценность, понятный page surface и проверяемый evidence path.
 
 ## Установка
 ```bash
