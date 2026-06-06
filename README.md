@@ -31,6 +31,19 @@ seo/research/llm-cli/results/<topic>-multipass-<date>/
 
 Итеративную распаковку делай только после final audit и cosine-neighbor отчета: максимум 5 P1/P2 seed nodes, где есть commercial/GEO/B2B ценность, понятный page surface и проверяемый evidence path.
 
+Готовые файлы в репозитории:
+
+- `llm-cli/prompts/multipass-seo-chain.md`
+- `llm-cli/prompts/iterative-unpacking.md`
+- `llm-cli/multipass-storage.md`
+- `scripts/vectorize-records.py`
+
+Локальная векторизация без внешних API:
+
+```bash
+python3 scripts/vectorize-records.py seo/research/llm-cli/results/<run-dir> --top-k 6 --min-score 0.12
+```
+
 ## Установка
 ```bash
 # 1. Нужен core seo-cycle (shared-скрипты + конфиг-схема)

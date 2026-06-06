@@ -49,6 +49,12 @@ description: Фазовый скилл сбора семантики и клас
 
    Итеративную распаковку запускать только после Phase 4 и neighbor report: максимум 5 seed nodes, только P1/P2 commercial/GEO/B2B узлы с понятным page surface и evidence. Не распаковывать все бренды, города и фильтры подряд.
 
+   Шаблоны и инструменты в этом skill:
+   - `llm-cli/prompts/multipass-seo-chain.md`
+   - `llm-cli/prompts/iterative-unpacking.md`
+   - `llm-cli/multipass-storage.md`
+   - `scripts/vectorize-records.py`
+
 4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
 
 5. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи). Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
