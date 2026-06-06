@@ -60,6 +60,7 @@ description: Фазовый скилл сбора семантики и клас
    - `graphify` — строить mixed graph по research/docs/code, когда нужно связать сущности, документы и кодовые артефакты.
    - `codegraph` — использовать только для code-symbol навигации по `seo-cycle`/проектному коду, не для SEO-частот.
    - `specify` — использовать для крупных изменений самого skill/repo, не для обычного сбора семантики.
+   - `notebooklm` — использовать как curated expert knowledge base по SEO/AEO/GEO после Google auth; ответы брать только с citations/source excerpts и переносить в fact-check/evidence queue, не в volume/KD.
 
 4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
 

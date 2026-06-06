@@ -12,7 +12,7 @@
 - Кластеризация (SERP-overlap) + разметка интентов + hub-and-spoke.
 - Multi-pass для сложных ecommerce-категорий: Antigravity Phase 1-2, Perplexity deep research Phase 1-4, Codex-native final audit/brief.
 - Structured reuse: `records.jsonl`, triplets `relations.jsonl`, `evidence.jsonl`, `subintents.jsonl`, cosine-neighbor report и controlled iterative unpacking.
-- Optional support toolchain из `seo-cycle`: MarkItDown для trusted document ingestion, Graphify для mixed research/docs/code graph, CodeGraph для code-symbol navigation, Spec Kit для крупных изменений skill/repo.
+- Optional support toolchain из `seo-cycle`: MarkItDown для trusted document ingestion, Graphify для mixed research/docs/code graph, CodeGraph для code-symbol navigation, Spec Kit для крупных изменений skill/repo, NotebookLM MCP для curated expert knowledge base.
 
 ## Multi-pass правило
 
@@ -49,9 +49,10 @@ Support toolchain ставится из core `seo-cycle`:
 
 ```bash
 bash ~/.codex/skills/seo-cycle/scripts/install-ai-toolchain.sh --codex
+bash ~/.codex/skills/seo-cycle/scripts/install-ai-toolchain.sh --codex --notebooklm
 ```
 
-Правила: `markitdown` только для trusted local files/явно разрешённых URL; `graphify-out/` и `.codegraph/` не коммитить; CodeGraph не использовать как источник SEO-частот; stealth/anti-bot инструменты не входят в стандартный workflow.
+Правила: `markitdown` только для trusted local files/явно разрешённых URL; `graphify-out/` и `.codegraph/` не коммитить; CodeGraph и NotebookLM не использовать как источник SEO-частот; NotebookLM ответы переносить в evidence/fact-check queue только с citations/source excerpts; stealth/anti-bot инструменты не входят в стандартный workflow.
 
 ## Установка
 ```bash
