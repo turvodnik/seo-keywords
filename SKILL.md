@@ -55,6 +55,12 @@ description: Фазовый скилл сбора семантики и клас
    - `llm-cli/multipass-storage.md`
    - `scripts/vectorize-records.py`
 
+   Локальный support toolchain, если установлен через `seo-cycle/scripts/install-ai-toolchain.sh --codex`:
+   - `markitdown` — конвертировать trusted PDF/XLSX/DOCX/PPTX/HTML/YouTube в Markdown перед evidence extraction.
+   - `graphify` — строить mixed graph по research/docs/code, когда нужно связать сущности, документы и кодовые артефакты.
+   - `codegraph` — использовать только для code-symbol навигации по `seo-cycle`/проектному коду, не для SEO-частот.
+   - `specify` — использовать для крупных изменений самого skill/repo, не для обычного сбора семантики.
+
 4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
 
 5. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи). Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
@@ -77,7 +83,7 @@ Quality-gate здесь: ядро непустое, у ключей размеч
 Можно без `_state.json` — просто отдай тему, скилл соберёт ядро в указанный каталог. Тогда шаги 1-4 без шага handoff.
 
 ## Зависимости
-- Core-скрипты из `~/.claude/skills/seo-cycle/scripts/` (shared). Установка: см. `README.md`.
+- Core-скрипты из `~/.codex/skills/seo-cycle/scripts/` (shared). Установка: см. `README.md`.
 - `seo-cycle.yaml` в проекте (источники/регион). Без него — спросить регион/язык у пользователя.
 
 ## Чего НЕ делает

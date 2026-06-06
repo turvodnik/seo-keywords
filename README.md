@@ -12,6 +12,7 @@
 - Кластеризация (SERP-overlap) + разметка интентов + hub-and-spoke.
 - Multi-pass для сложных ecommerce-категорий: Antigravity Phase 1-2, Perplexity deep research Phase 1-4, Codex-native final audit/brief.
 - Structured reuse: `records.jsonl`, triplets `relations.jsonl`, `evidence.jsonl`, `subintents.jsonl`, cosine-neighbor report и controlled iterative unpacking.
+- Optional support toolchain из `seo-cycle`: MarkItDown для trusted document ingestion, Graphify для mixed research/docs/code graph, CodeGraph для code-symbol navigation, Spec Kit для крупных изменений skill/repo.
 
 ## Multi-pass правило
 
@@ -44,12 +45,20 @@ seo/research/llm-cli/results/<topic>-multipass-<date>/
 python3 scripts/vectorize-records.py seo/research/llm-cli/results/<run-dir> --top-k 6 --min-score 0.12
 ```
 
+Support toolchain ставится из core `seo-cycle`:
+
+```bash
+bash ~/.codex/skills/seo-cycle/scripts/install-ai-toolchain.sh --codex
+```
+
+Правила: `markitdown` только для trusted local files/явно разрешённых URL; `graphify-out/` и `.codegraph/` не коммитить; CodeGraph не использовать как источник SEO-частот; stealth/anti-bot инструменты не входят в стандартный workflow.
+
 ## Установка
 ```bash
 # 1. Нужен core seo-cycle (shared-скрипты + конфиг-схема)
-git clone https://github.com/turvodnik/seo-cycle ~/.claude/skills/seo-cycle
+git clone https://github.com/turvodnik/seo-cycle ~/.codex/skills/seo-cycle
 # 2. Этот скилл
-git clone https://github.com/turvodnik/seo-keywords ~/.claude/skills/seo-keywords   # если раздаётся отдельно
+git clone https://github.com/turvodnik/seo-keywords ~/.codex/skills/seo-keywords   # если раздаётся отдельно
 pip3 install pyyaml requests
 # 3. Конфиг проекта (region_profile, источники) — см. seo-cycle/INSTALL.md
 ```
