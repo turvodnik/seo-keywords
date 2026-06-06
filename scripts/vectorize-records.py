@@ -74,6 +74,10 @@ def record_to_doc(record: dict[str, Any], source_file: str, index: int) -> Doc:
         record.get("slug")
         or record.get("entity_slug")
         or record.get("seed_slug")
+        or record.get("target_slug")
+        or record.get("answer_unit_id")
+        or record.get("prompt_id")
+        or record.get("sub_intent_id")
         or record.get("subject")
         or record.get("final_cluster")
         or record.get("query")
@@ -81,8 +85,12 @@ def record_to_doc(record: dict[str, Any], source_file: str, index: int) -> Doc:
     )
     label = str(
         record.get("label")
+        or record.get("title")
         or record.get("claim")
+        or record.get("answer_unit")
+        or record.get("prompt")
         or record.get("query")
+        or record.get("sub_intent")
         or record.get("final_cluster")
         or slug
     )
@@ -93,7 +101,10 @@ def record_to_doc(record: dict[str, Any], source_file: str, index: int) -> Doc:
         "slug",
         "label",
         "intent",
+        "intent_stage",
         "page_targets",
+        "page_target",
+        "page_format_preference",
         "relations",
         "evidence",
         "confidence",
@@ -106,8 +117,25 @@ def record_to_doc(record: dict[str, Any], source_file: str, index: int) -> Doc:
         "evidence_status",
         "claim",
         "answer_snippet",
+        "answer_unit",
+        "answer_unit_type",
+        "thesis",
+        "context",
+        "proof",
+        "conclusion",
         "sub_intent",
+        "sub_intents",
+        "sub_intent_id",
         "target_slug",
+        "entity_coverage_status",
+        "competitor_median_coverage",
+        "similarity_score",
+        "synthetic_prompt_group",
+        "prompt",
+        "prompt_group",
+        "source_label",
+        "source_url",
+        "source_topic",
     ]
     text = " ".join(flatten(record.get(field)) for field in important_fields)
     if not text.strip():
@@ -151,7 +179,23 @@ def cosine(a: dict[str, float], b: dict[str, float]) -> float:
 
 def load_docs(vector_dir: pathlib.Path) -> list[Doc]:
     docs: list[Doc] = []
-    for filename in ["records.jsonl", "relations.jsonl", "evidence.jsonl", "subintents.jsonl"]:
+    for filename in [
+        "records.jsonl",
+        "relations.jsonl",
+        "triplets.jsonl",
+        "evidence.jsonl",
+        "subintents.jsonl",
+        "sub_intents.jsonl",
+        "answer_units.jsonl",
+        "synthetic_prompts.jsonl",
+        "entity_coverage.jsonl",
+        "eeat_evidence.jsonl",
+        "local_seo_signals.jsonl",
+        "commercial_factors.jsonl",
+        "ai_visibility_checks.jsonl",
+        "traffic_diagnostics.jsonl",
+        "source_pack.jsonl",
+    ]:
         path = vector_dir / filename
         for idx, record in enumerate(read_jsonl(path), 1):
             docs.append(record_to_doc(record, filename, idx))

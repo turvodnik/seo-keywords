@@ -1,5 +1,7 @@
 # seo-keywords
 
+Version: `1.3.0`
+
 **Фазовый скилл сбора семантики и кластеризации** (Phase 2-3 модульной архитектуры `seo-cycle`).
 Собирает ключи из всех активных источников региона, сводит в ядро, кластеризует, размечает интенты.
 
@@ -11,7 +13,8 @@
 - Экономия: кэш с TTL, дистилляты в контекст, guard'ы кредитов Serpstat/SpyFu.
 - Кластеризация (SERP-overlap) + разметка интентов + hub-and-spoke.
 - Multi-pass для сложных ecommerce-категорий: Antigravity Phase 1-2, Perplexity deep research Phase 1-4, Codex-native final audit/brief.
-- Structured reuse: `records.jsonl`, triplets `relations.jsonl`, `evidence.jsonl`, `subintents.jsonl`, cosine-neighbor report и controlled iterative unpacking.
+- Structured reuse: `records.jsonl`, triplets `relations.jsonl`, `evidence.jsonl`, `sub_intents.jsonl` (`subintents.jsonl` legacy alias), cosine-neighbor report и controlled iterative unpacking.
+- SEO/AEO/GEO vNext records: `answer_units.jsonl`, `synthetic_prompts.jsonl`, `entity_coverage.jsonl`, `eeat_evidence.jsonl`, `local_seo_signals.jsonl`, `commercial_factors.jsonl`, `ai_visibility_checks.jsonl`, `traffic_diagnostics.jsonl`, `source_pack.jsonl`.
 - Optional support toolchain из `seo-cycle`: MarkItDown для trusted document ingestion, Graphify для mixed research/docs/code graph, CodeGraph для code-symbol navigation, Spec Kit для крупных изменений skill/repo, NotebookLM MCP для curated expert knowledge base.
 
 ## Multi-pass правило
@@ -23,14 +26,24 @@ seo/research/llm-cli/results/<topic>-multipass-<date>/
 ├── distillates/cross-source-merged.md
 ├── vector/records.jsonl
 ├── vector/relations.jsonl
+├── vector/triplets.jsonl
 ├── vector/evidence.jsonl
-├── vector/subintents.jsonl
+├── vector/sub_intents.jsonl
+├── vector/answer_units.jsonl
+├── vector/synthetic_prompts.jsonl
+├── vector/entity_coverage.jsonl
+├── vector/eeat_evidence.jsonl
+├── vector/local_seo_signals.jsonl
+├── vector/commercial_factors.jsonl
+├── vector/ai_visibility_checks.jsonl
+├── vector/traffic_diagnostics.jsonl
+├── vector/source_pack.jsonl
 ├── vector/similarity.jsonl
 ├── vector/neighbor-report.md
 └── final/seo-brief.md
 ```
 
-Итеративную распаковку делай только после final audit и cosine-neighbor отчета: максимум 5 P1/P2 seed nodes, где есть commercial/GEO/B2B ценность, понятный page surface и проверяемый evidence path.
+Итеративную распаковку делай только после final audit, Answer Units, synthetic prompts и cosine-neighbor отчета: максимум 5 P1/P2 seed nodes, где есть commercial/GEO/B2B ценность, понятный page surface и проверяемый evidence path.
 
 Готовые файлы в репозитории:
 

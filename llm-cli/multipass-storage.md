@@ -26,8 +26,18 @@ seo/research/llm-cli/results/<topic>-multipass-<YYYY-MM-DD>/
 ├── vector/
 │   ├── records.jsonl
 │   ├── relations.jsonl
+│   ├── triplets.jsonl
 │   ├── evidence.jsonl
-│   ├── subintents.jsonl
+│   ├── sub_intents.jsonl
+│   ├── answer_units.jsonl
+│   ├── synthetic_prompts.jsonl
+│   ├── entity_coverage.jsonl
+│   ├── eeat_evidence.jsonl
+│   ├── local_seo_signals.jsonl
+│   ├── commercial_factors.jsonl
+│   ├── ai_visibility_checks.jsonl
+│   ├── traffic_diagnostics.jsonl
+│   ├── source_pack.jsonl
 │   ├── similarity.jsonl
 │   ├── neighbor-report.md
 │   └── README.md
@@ -65,6 +75,10 @@ outputs:
   canonical_brief: final/seo-brief.md
   vector_records: vector/records.jsonl
   relation_graph: vector/relations.jsonl
+  sub_intents: vector/sub_intents.jsonl
+  answer_units: vector/answer_units.jsonl
+  synthetic_prompts: vector/synthetic_prompts.jsonl
+  entity_coverage: vector/entity_coverage.jsonl
 ```
 
 ## Cache policy
@@ -111,6 +125,50 @@ outputs:
 - `filter`
 - `risk`
 - `schema_property`
+- `answer_unit`
+- `synthetic_prompt`
+- `entity_coverage`
+- `eeat_evidence`
+- `local_seo_signal`
+- `commercial_factor`
+- `ai_visibility_check`
+- `traffic_diagnostic`
+- `source_pack`
+
+## Answer Units
+
+Answer Unit — это самостоятельный абзац, который может быть процитирован AI-поиском без остального текста страницы.
+
+```json
+{"run_id":"plita-osp-2026-06-06-multipass","record_type":"answer_unit","answer_unit_id":"osp-floor-thickness","topic":"Плита ОСП","intent_stage":"MOFU","page_format_preference":"category_faq","answer_unit_type":"commercial_direct_answer","thesis":"ОСП для пола выбирают по толщине и шагу лаг.","context":"Для чернового пола важны нагрузка, влажность и основание.","proof":"Точные значения требуют проверки по стандарту и рекомендациям производителя.","conclusion":"На странице нужен блок подбора толщины и FAQ.","entity_slug":"osp","synthetic_prompt_group":"selection","evidence_status":"needs_fact_check"}
+```
+
+Обязательные поля:
+
+- `answer_unit_id`
+- `answer_unit_type`
+- `intent_stage`
+- `page_format_preference`
+- `thesis`, `context`, `proof`, `conclusion`
+- `entity_slug`
+- `synthetic_prompt_group`
+- `evidence_status`
+
+## Synthetic AI prompts
+
+Synthetic prompts нужны для AI Brand Audit, GEO KPI и проверки Mention Rate.
+
+```json
+{"run_id":"plita-osp-2026-06-06-multipass","record_type":"synthetic_prompt","prompt_id":"osp-compare-01","prompt_group":"comparison","prompt":"Что лучше для чернового пола: ОСП или фанера?","intent":"comparison","intent_stage":"MOFU","target_slug":"osp-vs-fanera","page_format_preference":"comparison_block","expected_answer_entities":["osp","fanera","tolshchina","vlazhnost"],"success_criteria":["brand_mentioned","source_cited","answer_accurate"]}
+```
+
+## Entity coverage
+
+Entity coverage хранит разрыв между нашей страницей и конкурентами.
+
+```json
+{"run_id":"plita-osp-2026-06-06-multipass","record_type":"entity_coverage","entity_slug":"osp-3","label":"ОСП-3","entity_coverage_status":"underdeveloped","mentions_count":1,"current_triplets_count":2,"competitor_median_coverage":5,"similarity_score":0.48,"priority":"P1","recommended_surface":["H2","FAQ","Product schema"]}
+```
 
 ## Relation graph
 
@@ -195,7 +253,7 @@ Sub-intents нужны, чтобы не создавать страницы то
 
 Минимальный локальный вариант:
 
-- `records.jsonl` + `relations.jsonl` + `evidence.jsonl` превращаются в текстовые документы.
+- `records.jsonl` + `relations.jsonl` + `triplets.jsonl` + `evidence.jsonl` + vNext JSONL превращаются в текстовые документы.
 - Скрипт строит TF-IDF / n-gram векторы без внешних API.
 - Затем считает cosine similarity.
 - Результат пишется в `vector/similarity.jsonl` и `vector/neighbor-report.md`.

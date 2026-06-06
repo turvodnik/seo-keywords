@@ -45,6 +45,7 @@
 5. Каждый результат должен быть пригоден для повторного использования: добавляй stable slug, тип сущности, relation triples, source/evidence.
 6. Отмечай интенты: `[К]` commercial, `[И]` informational, `[B2B]`, `[B2C]`, `[GEO]`, `[FAQ]`, `[FILTER]`, `[URL]`.
 7. Для РФ/проектов без зарубежных tracking tags не предлагай установку analytics pixels. Off-site research и search-console источники допустимы.
+8. Для каждого коммерчески важного кластера добавляй: `intent_stage`, `page_format_preference`, `answer_unit_type`, `synthetic_prompt_group`.
 
 Формат каждого ответа:
 - Markdown для человека.
@@ -151,8 +152,17 @@
    - 20 запросов, по которым AI-ответ может цитировать страницу.
    - Какие блоки страницы должны быть citation-ready.
 
-5. `## Vector-ready records`:
+5. Answer Units:
+   - 10 citation-ready абзацев по формуле: thesis, context, proof, conclusion.
+   - Для каждого: `answer_unit_id`, `answer_unit_type`, `intent_stage`, `page_format_preference`, `entity_slug`, `synthetic_prompt_group`, `evidence_status`.
+
+6. Synthetic AI prompts:
+   - 10-15 промптов для ChatGPT/Perplexity/Яндекс Нейро/Google AI Mode.
+   - Группы: comparison, selection, risk, local, price, how_to, alternatives.
+
+7. `## Vector-ready records`:
    - JSONL поля: `run_id`, `record_type`, `claim`, `entity_slug`, `evidence_url`, `answer_snippet`, `eeat_type`, `confidence`, `needs_fact_check`.
+   - Дополнительно добавь отдельные строки `record_type=answer_unit` и `record_type=synthetic_prompt`.
 ```
 
 ## Phase 4 — Auditor, dedupe, final SEO brief
@@ -180,7 +190,7 @@
    - 10+ сущностей/атрибутов/страниц, которые были упущены.
 
 3. Final keyword clusters:
-   - 12-20 кластеров с primary/secondary queries, intent, page target, URL decision.
+   - 12-20 кластеров с primary/secondary queries, intent, intent_stage, page target, page_format_preference, URL decision.
 
 4. Final entity graph:
    - 40+ связей с приоритетом для Title/H1/H2/filter/FAQ/schema/internal links.
@@ -193,6 +203,9 @@
    - Schema.
    - Internal links.
    - Факты, которые нельзя публиковать без ручной проверки.
+   - Answer Units.
+   - Synthetic AI prompts.
+   - Entity coverage status и competitor median gaps.
 
 6. Экспертный вывод:
    - Что делать первым.
@@ -201,7 +214,7 @@
    - Какой источник/модель дала лучший результат.
 
 7. `## Vector-ready records`:
-   - JSONL поля: `run_id`, `record_type`, `final_cluster`, `entity_slug`, `page_target`, `relation`, `priority`, `evidence_status`, `reuse_scope`.
+   - JSONL поля: `run_id`, `record_type`, `final_cluster`, `entity_slug`, `page_target`, `intent_stage`, `page_format_preference`, `answer_unit_type`, `entity_coverage_status`, `competitor_median_coverage`, `similarity_score`, `synthetic_prompt_group`, `relation`, `priority`, `evidence_status`, `reuse_scope`.
 ```
 
 ## Phase 5 — Iterative unpacking queue

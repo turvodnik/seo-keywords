@@ -43,11 +43,16 @@ description: Фазовый скилл сбора семантики и клас
    Храни не только текст, но и структуру:
    - `vector/records.jsonl` — сущности, кластеры, FAQ, фильтры.
    - `vector/relations.jsonl` — triplets `subject -> predicate -> object`.
+   - `vector/triplets.jsonl` — нормализованные связи для graph/vector reuse.
    - `vector/evidence.jsonl` — проверяемые claims и источники.
-   - `vector/subintents.jsonl` — под-интенты и page targets.
+   - `vector/sub_intents.jsonl` — под-интенты и page targets (`subintents.jsonl` remains a legacy alias).
+   - `vector/answer_units.jsonl` — citation-ready абзацы по формуле тезис/контекст/доказательство/вывод.
+   - `vector/synthetic_prompts.jsonl` — AI-поисковые промпты по кластеру, surface и интенту.
+   - `vector/entity_coverage.jsonl` — coverage status, competitor median, similarity score, priority.
+   - `vector/eeat_evidence.jsonl`, `local_seo_signals.jsonl`, `commercial_factors.jsonl`, `ai_visibility_checks.jsonl`, `traffic_diagnostics.jsonl`, `source_pack.jsonl` — vNext records из `seo-cycle`.
    - `vector/similarity.jsonl` + `vector/neighbor-report.md` — cosine-neighbors, каннибализация, internal-link candidates.
 
-   Итеративную распаковку запускать только после Phase 4 и neighbor report: максимум 5 seed nodes, только P1/P2 commercial/GEO/B2B узлы с понятным page surface и evidence. Не распаковывать все бренды, города и фильтры подряд.
+   Итеративную распаковку запускать только после Phase 4, Answer Units, synthetic prompts и neighbor report: максимум 5 seed nodes, только P1/P2 commercial/GEO/B2B узлы с понятным page surface и evidence. Не распаковывать все бренды, города и фильтры подряд.
 
    Шаблоны и инструменты в этом skill:
    - `llm-cli/prompts/multipass-seo-chain.md`
@@ -62,9 +67,9 @@ description: Фазовый скилл сбора семантики и клас
    - `specify` — использовать для крупных изменений самого skill/repo, не для обычного сбора семантики.
    - `notebooklm` — использовать как curated expert knowledge base по SEO/AEO/GEO после Google auth; ответы брать только с citations/source excerpts и переносить в fact-check/evidence queue, не в volume/KD.
 
-4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
+4. **Свести в ядро** `02-keywords.md`: таблица `Ключ | volume | KD | intent | intent_stage | page_format_preference | answer_unit_type | cluster | source`. Веди `seo/source-attribution.csv` (источник каждого ключа).
 
-5. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи). Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
+5. **Кластеризовать** → `03-clusters.md`: группы по SERP-overlap/интенту, модель hub-and-spoke (hub=категория, spokes=статьи), Answer Units, synthetic prompts, entity coverage и sub-intents. Делегат: `claude-seo:seo-cluster` (если доступен) + `seo-keyword-researcher`.
 
 ## Выход
 - `<cycle>/02-keywords.md` — сводное ядро.
